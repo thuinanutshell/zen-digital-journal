@@ -1,10 +1,50 @@
 # Zen - Reflective Daily Journal
+One day hackathon
 
-## Problem Statement
+## Architecture
 
-**Zen** is a reflective journal for practicing mindfulness (i.e., observing thoughts and experiences daily) and better understanding oneself by extracting patterns from users’ own journal entries. The human brain undergoes a data-generating process every day. These thoughts or records of thoughts can tell us a lot about ourselves, hence helping us become more self-aware in different aspects of life.
+<img width="4318" height="1531" alt="image" src="https://github.com/user-attachments/assets/bd470d4e-c1b5-43c9-830f-e5c609207ea5" />
 
-There are different ways to record this data, often by writing or digital journaling. Either way has its own limitations because it is very hard to process a massive amount of data, and sometimes also because of inconsistent recording, which makes the conclusion biased. **Zen** addresses these problems by encouraging a daily log of users’ thoughts and emotions as well as utilizing AI for pattern extraction.
+```
+/journal-app
+│
+├── /client/                            # React frontend
+│   ├── /public/
+│   └── /src/
+│       ├── /components/
+│       │   ├── JournalForm.jsx         # Input form (text/image/audio)
+│       │   ├── JournalEntryList.jsx    # Displays entries
+│       │   └── ChatBox.jsx             # Chat UI with Gemini
+│       ├── /pages/
+│       │   ├── Home.jsx                # Main journal view
+│       │   └── Chat.jsx                # Chat with past self
+│       ├── /api/
+│       │   ├── journal.js              # Axios calls to /api/journal
+│       │   └── chat.js                 # Axios calls to /api/chat
+│       ├── App.jsx
+│       └── index.jsx
+│   └── package.json
+│
+├── /server/                            # Node + Express backend
+│   ├── /models/
+│   │   └── JournalEntry.js             # MongoDB journal schema
+│   ├── /routes/
+│   │   ├── journalRoutes.js            # POST/GET /api/journal
+│   │   └── chatRoutes.js               # POST /api/chat
+│   ├── /controllers/
+│   │   ├── journalController.js        # Handle journal logic
+│   │   └── chatController.js           # Call Gemini with context
+│   ├── /services/
+│   │   ├── ocrService.js               # Tesseract OCR
+│   │   └── transcriptionService.js     # Transcribe audio
+│   ├── /mock/
+│   │   └── seed.js                     # Run `node seed.js` to insert mock data
+│   ├── app.js                          # Main Express entry
+│   └── .env                            # Env vars (MONGO_URI, GEMINI_API_KEY)
+│
+├── /uploads/                           # (optional) temp file store
+│
+├── package.json                        # Backend package.json
+└── README.md
 
-## Backend
-## Frontend
+```
